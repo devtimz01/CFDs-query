@@ -1,0 +1,25 @@
+{
+  "name": "cfd-query",
+  "version": "1.0.0",
+  "main": "index.js",
+   "scripts": {
+    "start:server": "node dist/index.js",
+    "dev":"nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "build": "tsc",
+    "clean": "powershell Remove-Item -Recurse -Force dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "github:types/express",
+    "@types/node": "^25.4.0",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
