@@ -2,9 +2,9 @@
   "name": "cfd-query",
   "version": "1.0.0",
   "main": "index.js",
-   "scripts": {
+  "scripts": {
     "start:server": "node dist/index.js",
-    "dev":"nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
     "build": "tsc",
     "clean": "powershell Remove-Item -Recurse -Force dist"
   },
@@ -13,7 +13,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.2.1"
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "express": "^5.2.1",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/express": "github:types/express",
