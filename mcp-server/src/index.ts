@@ -16,14 +16,16 @@ server.tool('cfd-query','ask cfd-queryAi why your trade failed',
             .max(10_000_000, 'Image too large (max 10MB)')
             .describe('post chart image only (base64 string)')
 },
-    async(chartImage)=>{
-      const askGpt40 = await axios.post('https://api.openai.com/v1/chat/completions',
+    async({chartImage})=>{
+     try{ 
+        const askGpt40 = await axios.post('https://api.openai.com/v1/chat/completions',
         {
         model: 'gpt-4o',
         messages: [{
             role: 'user',
             content: [
-                { type: 'text', text: 'Hi AI, explain in details why this trade failed and how i to avoid such loses' },
+                { type: 'text',
+                  text: 'You are a professional CFD trading analyst. Analyze this chart image and provide: 1) Why the trade failed (technical analysis) 2) Specific mistakes made 3) Actionable recommendations to avoid similar losses in the future 4) Key lessons learned. Be detailed and educational.'  },
                 { 
                     type: 'image_url', 
                     image_url: { url: `data:image/png;base64,${chartImage}`}
@@ -40,7 +42,10 @@ server.tool('cfd-query','ask cfd-queryAi why your trade failed',
       )
         return {
             content:[{type:'text',text:askGpt40.data.choices[0].message.content}]
-        }
+        }}
+      catch(error) {
+        return { content:[{type:'text' as const, text: `Error: ${error instanceof Error ? error.message : error}`}]}
+      }
     }
 )
 
@@ -54,3 +59,5 @@ async function main() {
     }
     
 }
+
+main()
